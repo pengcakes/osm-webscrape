@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf8'?>
 <collection>
     <genre category="Action">
         <decade years="1980s">
@@ -18,7 +17,7 @@
                <rating>PG</rating>
                <description>None provided.</description>
             </movie>
-            <movie favorite="False" title="Back 2 the Future">
+            <movie favorite="False" title="Back to the Future">
                <format multiple="False">Blu-ray</format>
                <year>1985</year>
                <rating>PG</rating>
