@@ -28,6 +28,7 @@ nodes = []
 
 #not optimized even a little, spaget but it works
 #used in get_latlong()
+#try using .clear() function maybe?
 def nd_parse():
 
 	node_ref = []
@@ -39,8 +40,21 @@ def nd_parse():
 		temp_list = []
 		for x in root.findall("way[@id='{buidling_id}']/nd".format(buidling_id=i)):
 			temp_list.append(x.attrib['ref'])
-			
+	print(node_ref)		
 	return node_ref
+
+def nd_parse2():
+
+	node_ref = []
+	temp_list = []
+	for i in building_id:
+		node_ref.append(temp_list)
+		temp_list.clear()
+		for x in root.findall("way[@id='{buidling_id}']/nd".format(buidling_id=i)):
+			temp_list.append(x.attrib['ref'])
+	print(node_ref)
+	return node_ref
+
 
 #holy big o^3
 #used in parse()
@@ -81,8 +95,10 @@ def parse():
 
 
 parse()
-for x in building_dict:
-	print(x, building_dict[x])
+
+
+# for x in building_dict:
+# 	print(x, building_dict[x])
 
 end = time.time()
 print(round(end - start, 5))

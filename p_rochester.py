@@ -36,6 +36,7 @@ nodes = []
 
 #returns nodes
 #not optimized even a little, spaget but it works
+#try using .clear() function maybe?
 def nd_parse():
 
 	node_ref = []
@@ -50,6 +51,8 @@ def nd_parse():
 			
 	return node_ref
 
+
+#uses nodes to find lat long
 #holy big o^3
 def get_latlong():
 	var = nd_parse()
@@ -66,23 +69,15 @@ def get_latlong():
 
 
 def parse():
-	#get building height
-	for x in root.findall("way/tag[@k='building:height']"):
-		building_heights.append(x.attrib['v'])
-
-	#get building names
-	for x in root.findall("way/tag[@k='building:height'].../tag[@k='name']"):
-		building_names.append(x.attrib['v'])
-
 	#get building id
-	for x in root.findall("way/tag[@k='building:height']..."):
+	for x in root.findall("way/tag[@k='building']..."):
 		building_id.append(x.attrib['id'])
 
 	temp = get_latlong()
 
-	#add data to building_dict
+	#add lat arr and long arr to building_dict
 	for x in range(len(building_heights)):
-		building_dict[building_names[x]] = [building_id[x], building_heights[x], temp[0][x], temp[1][x]]
+		building_dict[building_id[x]] = [temp[0][x], temp[1][x]]
 
 	return building_dict
 
