@@ -5,8 +5,6 @@ k="building:height"
 k="building:levels"
 
 BUILDING NAME: [id, height, latlong[]]
-
-also needs to write to .csv file
 """
 import xml.etree.ElementTree as ET
 import time
@@ -96,7 +94,7 @@ def parse():
 
 
 	#add data to building_dict
-	for x in range(len(building_heights)):
+	for x in range(len(building_id)):
 
 		building_dict.update( {building_names[x] : [building_id[x], building_heights[x], temp[x]]} )
 
