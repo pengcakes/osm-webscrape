@@ -4,26 +4,33 @@ Search for:
 k="building:height"
 k="building:levels"
 
-BUILDING NAME: [id, height, lat[], long[]]
+BUILDING NAME: [id, height, latlong[]]
+
+also needs to write to .csv file
 """
 import xml.etree.ElementTree as ET
 import time
+import csv
+from pprint import pprint
 start = time.time()
 
+
+
 file_name = 'osm/searsT.osm'
-#file_name = 'osm/movies.xml'
 
 tree = ET.parse(file_name)
 root = tree.getroot()
 
 building_dict = {}
-building_data = []
 
 building_id = []
 building_heights = []
 building_names = []
-building_locations = []
-nodes = []
+
+
+def printArr(array):
+	for x in array:
+		print(x, '\n')
 
 
 #not optimized even a little, spaget but it works
@@ -31,46 +38,46 @@ nodes = []
 #try using .clear() function maybe?
 def nd_parse():
 
-	node_ref = []
-	count = 0
+	node_dictionary = []
+
 	for i in building_id:
-		if(count>0):
-			node_ref.append(temp_list)
-		count+=1
-		temp_list = []
+
+		temp_list = [] #makes new temp w/ each run
+
 		for x in root.findall("way[@id='{buidling_id}']/nd".format(buidling_id=i)):
 			temp_list.append(x.attrib['ref'])
-	print(node_ref)		
-	return node_ref
+		
+		node_dictionary.append(temp_list)
 
-def nd_parse2():
-
-	node_ref = []
-	temp_list = []
-	for i in building_id:
-		node_ref.append(temp_list)
-		temp_list.clear()
-		for x in root.findall("way[@id='{buidling_id}']/nd".format(buidling_id=i)):
-			temp_list.append(x.attrib['ref'])
-	print(node_ref)
-	return node_ref
-
+	return node_dictionary
 
 #holy big o^3
 #used in parse()
 def get_latlong():
-	var = nd_parse()
-	latitude = []
-	longitude = []
-	count = 0
-	for i in var:
-		for x in i:
-			for j in root.findall("node[@id='{z}']".format(z = x)):
-				latitude.append((j.attrib['lat']))
-				longitude.append((j.attrib['lon']))
+	node_dictionary = nd_parse()
 
-	return latitude, longitude
+	# test_dict = []
+	# test_dict.append(node_dictionary[0])
+	# test_dict.append(node_dictionary[1])
+	# test_dict.append(node_dictionary[2])
 
+	building_locations = []
+	
+	for node in node_dictionary:
+		temp=[]
+		for data in node:
+			latitude=[]
+			longitude=[]
+			for location in root.findall("node[@id='{z}']".format(z = data)):
+				latitude.append((location.attrib['lat']))
+				longitude.append((location.attrib['lon']))
+			combined = [latitude, longitude]
+			temp.append(combined)
+
+		building_locations.append(temp)	
+
+
+	return building_locations
 
 def parse():
 	#get building height
@@ -87,31 +94,43 @@ def parse():
 
 	temp = get_latlong()
 
+
 	#add data to building_dict
 	for x in range(len(building_heights)):
-		building_dict[building_names[x]] = [building_id[x], building_heights[x], temp[0][x], temp[1][x]]
+
+		building_dict.update( {building_names[x] : [building_id[x], building_heights[x], temp[x]]} )
 
 	return building_dict
 
 
 parse()
+pprint(building_dict)
 
 
-# for x in building_dict:
-# 	print(x, building_dict[x])
+filename = 'csv/searsT.csv'
+with open(filename, 'w') as file:
+	writer = csv.writer(file)
+	for key, values in building_dict.items():
+		writer.writerow([key, values])
+	print('finished writing to: ', filename)
+
 
 end = time.time()
 print(round(end - start, 5))
 
-# var = nd_parse()
 
-# test = var[0][0]
 
-# print(len(var))
 
-# for x in root.findall("node[@id='{z}']".format(z = test)):
-# 	print(x.attrib['lat'])
-# 	print(x.attrib['lon'])
+
+
+
+
+
+
+
+
+
+
 
 
 ##################################################################

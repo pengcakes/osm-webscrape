@@ -4,16 +4,20 @@ start = time.time()
 
 
 #print('hello world')
+list1=['a', 'b', 'c']
+# list2 = [1,2,4]
+# list3 = [7,8,9]
+# combined = [list1, list2]
+# building_locations = []
 
-test_list=['a', 'b', 'c']
-empty_list=[]
+# building_locations.append(combined)
+# print(building_locations)
+# print(combined)
+# print('\n')
+# list1.clear()
+# list2.clear()
 
-
-test_list.append(empty_list)
-
-print(test_list)
-
-
+print(len(list1))
 
 
 end = time.time()

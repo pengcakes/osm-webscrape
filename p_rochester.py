@@ -18,8 +18,10 @@ For elmgroove, the lat and lon range is : 43.1342   43.1763  -77.7752  -77.7133
 
 """
 import xml.etree.ElementTree as ET
+import time
+start = time.time()
 
-file_name = 'osm/searsT.osm'
+file_name = 'osm/irontest.osm'
 #file_name = 'osm/movies.xml'
 
 tree = ET.parse(file_name)
@@ -27,12 +29,7 @@ root = tree.getroot()
 
 building_dict = {}
 building_data = []
-
 building_id = []
-building_heights = []
-building_names = []
-building_locations = []
-nodes = []
 
 #returns nodes
 #not optimized even a little, spaget but it works
@@ -48,7 +45,7 @@ def nd_parse():
 		temp_list = []
 		for x in root.findall("way[@id='{buidling_id}']/nd".format(buidling_id=i)):
 			temp_list.append(x.attrib['ref'])
-			
+	
 	return node_ref
 
 
@@ -64,9 +61,8 @@ def get_latlong():
 			for j in root.findall("node[@id='{z}']".format(z = x)):
 				latitude.append((j.attrib['lat']))
 				longitude.append((j.attrib['lon']))
-
+	
 	return latitude, longitude
-
 
 def parse():
 	#get building id
@@ -75,9 +71,11 @@ def parse():
 
 	temp = get_latlong()
 
+	print(temp)
+
 	#add lat arr and long arr to building_dict
-	for x in range(len(building_heights)):
-		building_dict[building_id[x]] = [temp[0][x], temp[1][x]]
+	for x in range(0, len(building_id)):
+		building_dict[building_id[x]] = [x]
 
 	return building_dict
 
@@ -85,6 +83,15 @@ def parse():
 parse()
 for x in building_dict:
 	print(x, building_dict[x])
+
+# my_dict = {1: 'apple', 2: 'ball'}
+# my_dict[3] = ["pie", 5]
+# for x in my_dict:
+# 	print(x, my_dict[x])
+
+
+end = time.time()
+print(round(end - start, 5))
 
 # var = nd_parse()
 
