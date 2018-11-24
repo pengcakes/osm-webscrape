@@ -15,6 +15,7 @@ For elmgroove, the lat and lon range is : 43.1342   43.1763  -77.7752  -77.7133
 import xml.etree.ElementTree as ET
 import time
 import csv
+import pickle
 from pprint import pprint
 start = time.time()
 
@@ -73,9 +74,10 @@ def get_latlong():
 			latitude=[]
 			longitude=[]
 			for location in root.findall("node[@id='{z}']".format(z = data)):
-				latitude.append((location.attrib['lat']))
-				longitude.append((location.attrib['lon']))
+				latitude.append(float(((location.attrib['lat']))) ) 
+				longitude.append(float((location.attrib['lon'])) )
 			combined = [latitude, longitude]
+
 			temp.append(combined)
 
 		building_locations.append(temp)	
@@ -99,16 +101,35 @@ def parse():
 	return building_dict
 
 
+def save_obj(obj, name):
+    with open('obj/'+ name + '.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
+
 parse()
 pprint(building_dict)
+save_obj(building_dict, 'irondequoit')
 
 
-filename = 'csv/irondequoit.csv'
-with open(filename, 'w') as file:
-	writer = csv.writer(file)
-	for key, values in building_dict.items():
-		writer.writerow([key, values])
-	print('finished writing to: ', filename)
+# savefile = 'csv/test.csv'
+
+# #writes key to each row
+# savefile = 'csv/irontest.csv'
+# with open(savefile, 'w') as file:
+# 	writer = csv.writer(file)
+# 	for key, values in building_dict.items():
+# 		writer.writerow([key, values])
+# 	print('finished writing to: ', savefile)
+
+
+# #keeps keys in first row
+# with open(savefile, 'w') as f:  # Just use 'w' mode in 3.x
+#     w = csv.DictWriter(f, building_dict.keys())
+#     w.writeheader()
+#     w.writerow(building_dict)
+    
+#     print('finished writing to: ', savefile)
 
 
 end = time.time()
