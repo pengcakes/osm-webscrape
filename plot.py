@@ -33,33 +33,28 @@ dpi = 80
 im = plt.imread("Vis_2017-11-30_13-55-01_08866.ntf.jpg")
 height, width, n = im.shape
 
-figsize = width/float(dpi), height/float(dpi)
-
-#extent=[longitude_top_left,longitude_top_right,latitude_bottom_left,latitude_top_left]
-plt.imshow(im, extent=[-77.6152, -77.5520, 43.1759, 43.2192])
-plt.axis('off')
-plt.title('Irondequoit')
-
-# for key in building_dict:
-# 	for x in range(0, len(building_dict[key])):
-# 		plt.scatter(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
-# 		print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
-		
-# 		# if (43.1759 < building_dict[key][x][0][0] < 43.2192 and -77.6152 < building_dict[key][x][1][0] < -77.5520):
-# 		# 	plt.scattfsdsdfer(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
-# 		# 	print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
-
-
+# figsize = width/float(dpi), height/float(dpi)
 # fig = plt.figure(figsize=figsize)
 # ax = fig.add_axes([0,0,1,1])
 # ax.axis('off')
 # ax.imshow(im, interpolation='nearest')
 # fig.savefig('test.jpg', dpi=dpi, transparent=True)
 
-plt.savefig('highres.png', dpi=dpi, transparent=True)
+
+plt.imshow(im, extent=[-77.6152, -77.5520, 43.1759, 43.2192])
+plt.axis('off')
+
+for key in building_dict:
+	for x in range(0, len(building_dict[key])):
+		plt.scatter(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
+		print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
+		
+		# if (43.1759 < building_dict[key][x][0][0] < 43.2192 and -77.6152 < building_dict[key][x][1][0] < -77.5520):
+		# 	plt.scattfsdsdfer(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
+		# 	print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
 
 
-
+plt.savefig('highres.png')
 plt.show()
 
 
