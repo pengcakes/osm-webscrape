@@ -14,23 +14,16 @@ import csv
 from pprint import pprint
 start = time.time()
 
-# with open('csv/test.csv') as csvfile:
-#     readCSV = csv.reader(csvfile, delimiter=',')
-#     for x in readCSV:
-#     	building_dict = x    	
-
-# print(type(building_dict))
-
 
 def load_obj(name):
     with open('obj/' + name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
-building_dict = load_obj('irondequoit')
+building_dict = load_obj('important_irondequoit')
 
 
 dpi = 80
-im = plt.imread("Vis_2017-11-30_13-55-01_08866.ntf.jpg")
+im = plt.imread("images/Vis_2017-11-30_13-55-01_08866.ntf.jpg")
 height, width, n = im.shape
 
 # figsize = width/float(dpi), height/float(dpi)
@@ -43,8 +36,10 @@ height, width, n = im.shape
 
 plt.imshow(im, extent=[-77.6152, -77.5520, 43.1759, 43.2192])
 plt.axis('off')
-
+bcount = 0
 for key in building_dict:
+	bcount+=1
+	print(bcount, '\n\n')
 	for x in range(0, len(building_dict[key])):
 		plt.scatter(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
 		print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
@@ -53,8 +48,9 @@ for key in building_dict:
 		# 	plt.scattfsdsdfer(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
 		# 	print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
 
+print(bcount)
 
-plt.savefig('highres.png')
+plt.savefig('images/important.png')
 plt.show()
 
 
