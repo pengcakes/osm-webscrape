@@ -1,13 +1,31 @@
-from pprint import pprint
-import collections
+import pickle
+import pprint
+import csv
 
 
+def load_obj(name):
+    with open('obj/' + name + '.pkl', 'rb') as f:
+        return pickle.load(f)
 
-dict = collections.defaultdict(list)
 
-dict['123'] = 123
-dict['456'] = 456
+d = load_obj('irondequoit')
+important = load_obj('important_irondequoit')
+building_names = load_obj('names_irondequoit')
 
-dict['123'].append('test')
+# pprint.pprint(important)
+# pprint.pprint(building_names)
 
-pprint(dict)
+x = len(building_names)
+count = 0
+
+for key,val in building_names.items():
+    if key in d:
+    	d[key] = [val, d[key]]
+
+#writes key to each row
+savefile = 'csv/all_irondequoit.csv'
+with open(savefile, 'w') as file:
+	writer = csv.writer(file)
+	for key, values in d.items():
+		writer.writerow([key, values])
+	print('finished writing to: ', savefile)

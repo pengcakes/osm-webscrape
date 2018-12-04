@@ -118,27 +118,8 @@ def save_obj(obj, name):
 
 
 building_dict, building_names, important_buildings = parse()
-pprint(important_buildings)
-save_obj(important_buildings, 'important_irondequoit')
+save_obj(building_names, 'names_irondequoit')
 
-
-# savefile = 'csv/test.csv'
-# #writes key to each row
-# savefile = 'csv/irontest.csv'
-# with open(savefile, 'w') as file:
-# 	writer = csv.writer(file)
-# 	for key, values in building_dict.items():
-# 		writer.writerow([key, values])
-# 	print('finished writing to: ', savefile)
-
-
-# #keeps keys in first row
-# with open(savefile, 'w') as f:  # Just use 'w' mode in 3.x
-#     w = csv.DictWriter(f, building_dict.keys())
-#     w.writeheader()
-#     w.writerow(building_dict)
-    
-#     print('finished writing to: ', savefile)
 
 
 end = time.time()

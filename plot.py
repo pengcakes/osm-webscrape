@@ -41,7 +41,7 @@ for key in building_dict:
 	bcount+=1
 	print(bcount, '\n\n')
 	for x in range(0, len(building_dict[key])):
-		plt.scatter(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
+		#plt.scatter(building_dict[key][x][1][0], building_dict[key][x][0][0], c='r', s=1)
 		print('plotted: ', building_dict[key][x][1][0], building_dict[key][x][0][0])
 		
 		# if (43.1759 < building_dict[key][x][0][0] < 43.2192 and -77.6152 < building_dict[key][x][1][0] < -77.5520):
@@ -50,8 +50,10 @@ for key in building_dict:
 
 print(bcount)
 
-plt.savefig('images/important.png')
-plt.show()
+pprint(building_dict)
+
+#plt.savefig('images/important.png')
+#plt.show()
 
 
 
