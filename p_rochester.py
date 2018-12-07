@@ -10,6 +10,10 @@ For Irondequoit, the lat and lon range is : 43.1759   43.2192  -77.6152  -77.552
 
 For elmgroove, the lat and lon range is : 43.1342   43.1763  -77.7752  -77.7133
 
+Kodack Park
+43.1342   43.1763
+-77.7752  -77.7133
+
 
 """
 import xml.etree.ElementTree as ET
