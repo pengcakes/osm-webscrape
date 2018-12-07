@@ -13,9 +13,8 @@ For elmgroove, the lat and lon range is : 43.1342   43.1763  -77.7752  -77.7133
 Kodack Park
 43.1342   43.1763
 -77.7752  -77.7133
-
-
 """
+
 import xml.etree.ElementTree as ET
 import time
 import csv
@@ -25,7 +24,7 @@ start = time.time()
 
 
 
-file_name = 'osm/irondequoit.osm'
+file_name = 'osm/kodak.osm'
 
 tree = ET.parse(file_name)
 root = tree.getroot()
@@ -113,18 +112,15 @@ def save_obj(obj, name):
 
 parse()
 pprint(building_dict)
-save_obj(building_dict, 'irondequoit')
+save_obj(building_dict, 'kodack')
 
-
-# savefile = 'csv/test.csv'
-
-# #writes key to each row
-# savefile = 'csv/irontest.csv'
-# with open(savefile, 'w') as file:
-# 	writer = csv.writer(file)
-# 	for key, values in building_dict.items():
-# 		writer.writerow([key, values])
-# 	print('finished writing to: ', savefile)
+#writes key to each row
+savefile = 'csv/kodak.csv'
+with open(savefile, 'w') as file:
+	writer = csv.writer(file)
+	for key, values in building_dict.items():
+		writer.writerow([key, values])
+	print('finished writing to: ', savefile)
 
 
 # #keeps keys in first row

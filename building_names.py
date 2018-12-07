@@ -20,7 +20,7 @@ start = time.time()
 
 
 
-file_name = 'osm/irondequoit.osm'
+file_name = 'osm/kodak.osm'
 
 tree = ET.parse(file_name)
 root = tree.getroot()
@@ -89,6 +89,17 @@ def get_names():
 	return names
 
 
+def get_all_names():
+	all_names = []
+
+	#get building id
+	for x in root.findall("node/tag"):
+		if(x.attrib['k'] == 'name'):
+			all_names.append(x.attrib['v'])
+		
+
+	return all_names
+
 
 def parse():
 	#get building id
@@ -117,8 +128,12 @@ def save_obj(obj, name):
 
 
 
-building_dict, building_names, important_buildings = parse()
-save_obj(building_names, 'names_irondequoit')
+# building_dict, building_names, important_buildings = parse()
+# pprint(building_names)
+# save_obj(building_names, 'kodak')
+
+x = get_all_names()
+printArr(x)
 
 
 
