@@ -133,8 +133,8 @@ def save_obj(obj, name):
 # save_obj(building_names, 'kodak')
 
 x = get_all_names()
-printArr(x)
-
+print(x)
+save_obj(x, 'kodak_names')
 
 
 end = time.time()
